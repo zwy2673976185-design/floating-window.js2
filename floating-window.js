@@ -1,4 +1,4 @@
-// floatWindow.js - 优化显示+头部厚度
+// floatWindow.js - 匹配参考图样式（列表式按钮+对应图标）
 (function() {
     if (window.floatingWindowInjected) return;
     window.floatingWindowInjected = true;
@@ -14,7 +14,7 @@
         floatBtnZIndex: 1002,
         floatWindowZIndex: 1001,
         windowWidth: 280,
-        windowHeight: 250, // 保持高度，通过调整头部和内容区布局优化显示
+        windowHeight: 250,
         btnActiveScale: 0.95,
     };
 
@@ -68,26 +68,26 @@
                 opacity: 1;
             }
 
-            /* 蓝色头部优化：减少padding，降低厚度 */
+            /* 蓝色头部：更简洁，高度压缩 */
             .window-header {
-                padding: 8px 15px; /* 原12px改为8px，降低头部高度 */
+                padding: 8px 15px;
                 background: #2563eb;
                 color: white;
-                font-size: 14px; /* 原15px改为14px，适配高度 */
+                font-size: 14px;
                 font-weight: 500;
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
                 cursor: move;
                 -webkit-tap-highlight-color: transparent;
-                height: 36px; /* 原42px改为36px，头部更薄 */
+                height: 34px; /* 进一步降低高度 */
             }
 
             .modal-back {
                 background: transparent;
                 border: none;
                 color: white;
-                font-size: 14px; /* 同步字体大小 */
+                font-size: 14px;
                 cursor: pointer;
                 padding: 3px 6px;
                 border-radius: 4px;
@@ -99,45 +99,46 @@
                 background: rgba(255, 255, 255, 0.1);
             }
 
-            /* 内容区优化：增加可用高度，调整字体 */
+            /* 功能按钮：列表式布局，浅灰背景，图标居右 */
             .func-buttons {
-                padding: 8px; /* 原10px改为8px，节省空间 */
+                padding: 0; /* 取消内边距，由按钮自身控制 */
                 display: flex;
                 flex-direction: column;
-                gap: 8px; /* 原10px改为8px，按钮间距缩小 */
-                max-height: calc(${config.windowHeight}px - 36px); /* 头部改为36px，内容区更高 */
+                max-height: calc(${config.windowHeight}px - 34px); /* 头部34px */
                 overflow-y: auto;
                 -webkit-overflow-scrolling: touch;
             }
             .func-btn {
-                padding: 8px 10px; /* 原10px 12px改为8px 10px，按钮更紧凑 */
-                border: 1px solid #eee;
-                border-radius: 6px;
-                background: #f8f9fa;
-                font-size: 12px; /* 原13px改为12px，适配空间 */
+                padding: 10px 15px;
+                background: #f2f3f5; /* 浅灰色背景 */
+                font-size: 14px;
                 color: #333;
                 text-align: left;
                 cursor: pointer;
-                transition: background 0.2s ease, border-color 0.2s ease;
+                transition: background 0.2s ease;
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
                 -webkit-tap-highlight-color: transparent;
                 border: none;
+                border-bottom: 1px solid #e5e7eb; /* 底部分割线 */
+            }
+            .func-btn:last-child {
+                border-bottom: none; /* 最后一个按钮无分割线 */
             }
             .func-btn:hover, .func-btn:active {
-                background: #f1f3f5;
-                border-color: #ddd;
+                background: #e5e7eb;
             }
             .btn-icon {
-                width: 16px; /* 原18px改为16px，图标缩小 */
-                height: 16px;
-                opacity: 0.7;
+                width: 20px;
+                height: 20px;
+                opacity: 0.8;
             }
 
+            /* 内容面板：与功能按钮样式统一 */
             .content-panel {
-                padding: 8px; /* 原10px改为8px */
-                max-height: calc(${config.windowHeight}px - 36px); /* 头部改为36px */
+                padding: 10px;
+                max-height: calc(${config.windowHeight}px - 34px);
                 overflow-y: auto;
                 -webkit-overflow-scrolling: touch;
                 display: none;
@@ -147,51 +148,50 @@
             }
 
             .user-name {
-                font-size: 14px; /* 原15px改为14px */
+                font-size: 14px;
                 font-weight: 600;
                 color: #333;
-                margin-bottom: 5px; /* 原6px改为5px */
+                margin-bottom: 5px;
             }
             .user-desc {
-                font-size: 11px; /* 原12px改为11px */
+                font-size: 12px;
                 color: #666;
-                line-height: 1.4; /* 原1.5改为1.4，更紧凑 */
+                line-height: 1.4;
             }
             .notice-item {
-                font-size: 11px; /* 原12px改为11px */
+                font-size: 12px;
                 color: #333;
-                margin-bottom: 8px; /* 原10px改为8px */
+                margin-bottom: 8px;
                 line-height: 1.4;
-                padding-bottom: 8px; /* 原10px改为8px */
+                padding-bottom: 8px;
                 border-bottom: 1px solid #eee;
             }
             .notice-item:last-child {
                 border-bottom: none;
-                margin-bottom: 2px; /* 原3px改为2px */
+                margin-bottom: 0;
                 padding-bottom: 0;
             }
             .notice-title {
                 font-weight: 500;
-                margin-bottom: 3px; /* 原3px保持 */
+                margin-bottom: 3px;
                 color: #2563eb;
             }
             .notice-time {
-                font-size: 9px; /* 原10px改为9px */
+                font-size: 10px;
                 color: #999;
-                margin-bottom: 4px; /* 原5px改为4px */
+                margin-bottom: 4px;
             }
             .empty-tip {
-                font-size: 11px; /* 原12px改为11px */
+                font-size: 12px;
                 color: #999;
                 text-align: center;
-                padding: 12px 0; /* 原15px改为12px */
+                padding: 12px 0;
                 line-height: 1.4;
             }
         `;
         document.head.appendChild(styleElement);
     }
 
-    // 以下createElements、utils、initFunctions逻辑与之前完全一致，无需修改
     function createElements() {
         const floatBtn = document.createElement('button');
         floatBtn.className = 'float-btn';
@@ -213,7 +213,7 @@
                 </button>
                 <button class="func-btn" id="btnNotice">
                     <span>公告</span>
-                    <img src="https://img.icons8.com/ios-glyphs/30/666/announcement--v1.png" class="btn-icon" alt="公告">
+                    <img src="https://img.icons8.com/ios-glyphs/30/666/help--v1.png" class="btn-icon" alt="公告">
                 </button>
                 <button class="func-btn" id="btnContact">
                     <span>联系作者</span>
@@ -449,7 +449,7 @@
             createStyle();
             const elements = createElements();
             initFunctions(elements);
-            console.log('悬浮窗优化完成（显示完整+头部变薄）');
+            console.log('悬浮窗样式匹配完成');
         } catch (err) {
             console.error('悬浮窗加载失败：', err);
             alert('悬浮窗异常，请检查文件路径');
