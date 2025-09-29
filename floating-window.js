@@ -1,4 +1,4 @@
-// floating-window.js（支持滑动查看的最终版）
+// floating-window.js（完整悬浮球功能封装）
 (function() {
     if (window.floatingWindowInjected) return;
     window.floatingWindowInjected = true;
@@ -14,7 +14,7 @@
         floatBtnZIndex: 1002,
         floatWindowZIndex: 1001,
         windowWidth: 280,
-        windowHeight: 260, // 增加高度，支持内容滚动
+        windowHeight: 250,
         btnActiveScale: 0.95,
     };
 
@@ -68,26 +68,25 @@
                 opacity: 1;
             }
 
-            /* 蓝色头部：极简风格 */
             .window-header {
-                padding: 8px 15px;
+                padding: 12px 15px;
                 background: #2563eb;
                 color: white;
-                font-size: 14px;
+                font-size: 15px;
                 font-weight: 500;
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
                 cursor: move;
                 -webkit-tap-highlight-color: transparent;
-                height: 34px;
+                height: 42px;
             }
 
             .modal-back {
                 background: transparent;
                 border: none;
                 color: white;
-                font-size: 14px;
+                font-size: 15px;
                 cursor: pointer;
                 padding: 3px 6px;
                 border-radius: 4px;
@@ -99,51 +98,45 @@
                 background: rgba(255, 255, 255, 0.1);
             }
 
-            /* 列表式按钮：完全匹配参考图 */
             .func-buttons {
-                padding: 0;
+                padding: 10px;
                 display: flex;
                 flex-direction: column;
-                max-height: calc(${config.windowHeight}px - 34px);
-                overflow-y: hidden; /* 按钮区不滚动，保持固定 */
+                gap: 10px;
+                max-height: calc(${config.windowHeight}px - 42px);
+                overflow-y: auto;
                 -webkit-overflow-scrolling: touch;
             }
             .func-btn {
-                padding: 10px 15px;
-                background: #f0f0f0;
-                font-size: 14px;
+                padding: 10px 12px;
+                border: 1px solid #eee;
+                border-radius: 6px;
+                background: #f8f9fa;
+                font-size: 13px;
                 color: #333;
                 text-align: left;
                 cursor: pointer;
-                transition: background 0.2s ease;
+                transition: background 0.2s ease, border-color 0.2s ease;
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
                 -webkit-tap-highlight-color: transparent;
                 border: none;
-                border-bottom: 1px solid #e0e0e0;
-                border-radius: 0;
-            }
-            .func-btn:last-child {
-                border-bottom: none;
             }
             .func-btn:hover, .func-btn:active {
-                background: #e5e5e5;
+                background: #f1f3f5;
+                border-color: #ddd;
             }
             .btn-icon {
-                width: 20px;
-                height: 20px;
-                opacity: 1;
-            }
-            /* 公告图标颜色调整为蓝色 */
-            #btnNotice .btn-icon {
-                filter: invert(32%) sepia(66%) saturate(3344%) hue-rotate(210deg) brightness(92%) contrast(91%);
+                width: 18px;
+                height: 18px;
+                opacity: 0.7;
             }
 
             .content-panel {
                 padding: 10px;
-                max-height: calc(${config.windowHeight}px - 34px);
-                overflow-y: auto; /* 内容区支持滑动滚动 */
+                max-height: calc(${config.windowHeight}px - 42px);
+                overflow-y: auto;
                 -webkit-overflow-scrolling: touch;
                 display: none;
             }
@@ -152,27 +145,27 @@
             }
 
             .user-name {
-                font-size: 14px;
+                font-size: 15px;
                 font-weight: 600;
                 color: #333;
-                margin-bottom: 5px;
+                margin-bottom: 6px;
             }
             .user-desc {
                 font-size: 12px;
                 color: #666;
-                line-height: 1.4;
+                line-height: 1.5;
             }
             .notice-item {
                 font-size: 12px;
                 color: #333;
-                margin-bottom: 8px;
-                line-height: 1.4;
-                padding-bottom: 8px;
+                margin-bottom: 10px;
+                line-height: 1.5;
+                padding-bottom: 10px;
                 border-bottom: 1px solid #eee;
             }
             .notice-item:last-child {
                 border-bottom: none;
-                margin-bottom: 0;
+                margin-bottom: 3px;
                 padding-bottom: 0;
             }
             .notice-title {
@@ -183,14 +176,14 @@
             .notice-time {
                 font-size: 10px;
                 color: #999;
-                margin-bottom: 4px;
+                margin-bottom: 5px;
             }
             .empty-tip {
                 font-size: 12px;
                 color: #999;
                 text-align: center;
-                padding: 12px 0;
-                line-height: 1.4;
+                padding: 15px 0;
+                line-height: 1.5;
             }
         `;
         document.head.appendChild(styleElement);
@@ -217,7 +210,7 @@
                 </button>
                 <button class="func-btn" id="btnNotice">
                     <span>公告</span>
-                    <img src="https://img.icons8.com/ios-glyphs/30/666/help--v1.png" class="btn-icon" alt="公告">
+                    <img src="https://img.icons8.com/ios-glyphs/30/666/announcement--v1.png" class="btn-icon" alt="公告">
                 </button>
                 <button class="func-btn" id="btnContact">
                     <span>联系作者</span>
@@ -453,10 +446,9 @@
             createStyle();
             const elements = createElements();
             initFunctions(elements);
-            console.log('悬浮窗样式优化完成（支持滑动查看）');
+            console.log('悬浮窗通过外部JS加载完成');
         } catch (err) {
             console.error('悬浮窗加载失败：', err);
-            alert('悬浮窗异常，请检查文件路径');
             window.destroyFloatingWindow?.();
         }
     };
