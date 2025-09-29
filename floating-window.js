@@ -1,4 +1,4 @@
-// floating-window.js（最终优化版）
+// floating-window.js（支持滑动查看的最终版）
 (function() {
     if (window.floatingWindowInjected) return;
     window.floatingWindowInjected = true;
@@ -14,7 +14,7 @@
         floatBtnZIndex: 1002,
         floatWindowZIndex: 1001,
         windowWidth: 280,
-        windowHeight: 200, // 调整高度，确保内容完整显示
+        windowHeight: 260, // 增加高度，支持内容滚动
         btnActiveScale: 0.95,
     };
 
@@ -54,7 +54,7 @@
                 position: fixed;
                 z-index: ${config.floatWindowZIndex};
                 width: ${config.windowWidth}px;
-                height: ${config.windowHeight}px; /* 固定高度为200px，确保内容完整 */
+                height: ${config.windowHeight}px;
                 background: white;
                 border-radius: 10px;
                 box-shadow: 0 3px 15px rgba(0,0,0,0.2);
@@ -104,8 +104,8 @@
                 padding: 0;
                 display: flex;
                 flex-direction: column;
-                max-height: calc(${config.windowHeight}px - 34px); /* 头部34px，内容区高度适配 */
-                overflow-y: hidden; /* 禁止滚动，确保内容完整 */
+                max-height: calc(${config.windowHeight}px - 34px);
+                overflow-y: hidden; /* 按钮区不滚动，保持固定 */
                 -webkit-overflow-scrolling: touch;
             }
             .func-btn {
@@ -143,7 +143,7 @@
             .content-panel {
                 padding: 10px;
                 max-height: calc(${config.windowHeight}px - 34px);
-                overflow-y: auto;
+                overflow-y: auto; /* 内容区支持滑动滚动 */
                 -webkit-overflow-scrolling: touch;
                 display: none;
             }
@@ -453,7 +453,7 @@
             createStyle();
             const elements = createElements();
             initFunctions(elements);
-            console.log('悬浮窗样式优化完成');
+            console.log('悬浮窗样式优化完成（支持滑动查看）');
         } catch (err) {
             console.error('悬浮窗加载失败：', err);
             alert('悬浮窗异常，请检查文件路径');
