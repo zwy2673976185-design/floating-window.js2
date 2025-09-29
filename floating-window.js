@@ -1,4 +1,4 @@
-// floating-window.js（匹配截图样式最终版）
+// floating-window.js（与你源码完全一致的版本）
 (function() {
     if (window.floatingWindowInjected) return;
     window.floatingWindowInjected = true;
@@ -98,7 +98,6 @@
                 background: rgba(255, 255, 255, 0.1);
             }
 
-            /* 按钮样式：匹配截图的浅灰圆角 */
             .func-buttons {
                 padding: 10px;
                 display: flex;
@@ -110,30 +109,28 @@
             }
             .func-btn {
                 padding: 10px 12px;
-                background: #f5f5f5; /* 浅灰背景，匹配截图 */
-                font-size: 14px;
+                border: 1px solid #eee;
+                border-radius: 6px;
+                background: #f8f9fa;
+                font-size: 13px;
                 color: #333;
                 text-align: left;
                 cursor: pointer;
-                transition: background 0.2s ease;
+                transition: background 0.2s ease, border-color 0.2s ease;
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
                 -webkit-tap-highlight-color: transparent;
                 border: none;
-                border-radius: 8px; /* 圆角，匹配截图 */
             }
             .func-btn:hover, .func-btn:active {
-                background: #e9e9e9; /* hover浅灰，匹配截图 */
+                background: #f1f3f5;
+                border-color: #ddd;
             }
             .btn-icon {
-                width: 20px;
-                height: 20px;
-                opacity: 1;
-            }
-            /* 公告图标颜色：蓝色，匹配截图 */
-            #btnNotice .btn-icon {
-                filter: invert(32%) sepia(66%) saturate(3344%) hue-rotate(210deg) brightness(92%) contrast(91%);
+                width: 18px;
+                height: 18px;
+                opacity: 0.7;
             }
 
             .content-panel {
@@ -142,35 +139,33 @@
                 overflow-y: auto;
                 -webkit-overflow-scrolling: touch;
                 display: none;
-                font-size: 12px;
-                line-height: 1.3;
             }
             .content-panel.active {
                 display: block;
             }
 
             .user-name {
-                font-size: 14px;
+                font-size: 15px;
                 font-weight: 600;
                 color: #333;
-                margin-bottom: 5px;
+                margin-bottom: 6px;
             }
             .user-desc {
                 font-size: 12px;
                 color: #666;
-                line-height: 1.3;
+                line-height: 1.5;
             }
             .notice-item {
                 font-size: 12px;
                 color: #333;
-                margin-bottom: 8px;
-                line-height: 1.3;
-                padding-bottom: 8px;
+                margin-bottom: 10px;
+                line-height: 1.5;
+                padding-bottom: 10px;
                 border-bottom: 1px solid #eee;
             }
             .notice-item:last-child {
                 border-bottom: none;
-                margin-bottom: 0;
+                margin-bottom: 3px;
                 padding-bottom: 0;
             }
             .notice-title {
@@ -181,14 +176,14 @@
             .notice-time {
                 font-size: 10px;
                 color: #999;
-                margin-bottom: 4px;
+                margin-bottom: 5px;
             }
             .empty-tip {
                 font-size: 12px;
                 color: #999;
                 text-align: center;
-                padding: 12px 0;
-                line-height: 1.3;
+                padding: 15px 0;
+                line-height: 1.5;
             }
         `;
         document.head.appendChild(styleElement);
@@ -215,7 +210,7 @@
                 </button>
                 <button class="func-btn" id="btnNotice">
                     <span>公告</span>
-                    <img src="https://img.icons8.com/ios-glyphs/30/666/help--v1.png" class="btn-icon" alt="公告">
+                    <img src="https://img.icons8.com/ios-glyphs/30/666/announcement--v1.png" class="btn-icon" alt="公告">
                 </button>
                 <button class="func-btn" id="btnContact">
                     <span>联系作者</span>
@@ -451,7 +446,7 @@
             createStyle();
             const elements = createElements();
             initFunctions(elements);
-            console.log('悬浮窗样式匹配截图完成');
+            console.log('悬浮窗与您的源码完全一致，初始化完成');
         } catch (err) {
             console.error('悬浮窗加载失败：', err);
             window.destroyFloatingWindow?.();
