@@ -1,4 +1,4 @@
-// floating-window.js（替换原在线文件内容）
+// floatWindow.js - 匹配参考图样式（列表式按钮+薄头部）
 (function() {
     if (window.floatingWindowInjected) return;
     window.floatingWindowInjected = true;
@@ -68,7 +68,7 @@
                 opacity: 1;
             }
 
-            /* 蓝色头部：与参考图完全对齐 */
+            /* 蓝色头部：薄且简洁 */
             .window-header {
                 padding: 8px 15px;
                 background: #2563eb;
@@ -99,7 +99,7 @@
                 background: rgba(255, 255, 255, 0.1);
             }
 
-            /* 列表式按钮：匹配参考图的浅灰+圆角+图标 */
+            /* 列表式按钮：浅灰背景+分割线+对应图标 */
             .func-buttons {
                 padding: 0;
                 display: flex;
@@ -110,7 +110,7 @@
             }
             .func-btn {
                 padding: 10px 15px;
-                background: #f0f0f0; /* 浅灰背景，与参考图一致 */
+                background: #f2f3f5;
                 font-size: 14px;
                 color: #333;
                 text-align: left;
@@ -121,23 +121,18 @@
                 justify-content: space-between;
                 -webkit-tap-highlight-color: transparent;
                 border: none;
-                border-bottom: 1px solid #e0e0e0; /* 细分割线 */
-                border-radius: 0; /* 取消圆角，与参考图对齐 */
+                border-bottom: 1px solid #e5e7eb;
             }
             .func-btn:last-child {
                 border-bottom: none;
             }
             .func-btn:hover, .func-btn:active {
-                background: #e5e5e5;
+                background: #e5e7eb;
             }
             .btn-icon {
                 width: 20px;
                 height: 20px;
-                opacity: 1; /* 图标不透明，与参考图一致 */
-            }
-            /* 公告图标颜色调整为蓝色 */
-            #btnNotice .btn-icon {
-                filter: invert(32%) sepia(66%) saturate(3344%) hue-rotate(210deg) brightness(92%) contrast(91%);
+                opacity: 0.8;
             }
 
             .content-panel {
