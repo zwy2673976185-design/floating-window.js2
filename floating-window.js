@@ -1,4 +1,4 @@
-// floatWindow.js - 匹配参考图样式（列表式按钮+薄头部）
+// floating-window.js（最终优化版）
 (function() {
     if (window.floatingWindowInjected) return;
     window.floatingWindowInjected = true;
@@ -14,7 +14,7 @@
         floatBtnZIndex: 1002,
         floatWindowZIndex: 1001,
         windowWidth: 280,
-        windowHeight: 250,
+        windowHeight: 200, // 调整高度，确保内容完整显示
         btnActiveScale: 0.95,
     };
 
@@ -54,7 +54,7 @@
                 position: fixed;
                 z-index: ${config.floatWindowZIndex};
                 width: ${config.windowWidth}px;
-                height: ${config.windowHeight}px;
+                height: ${config.windowHeight}px; /* 固定高度为200px，确保内容完整 */
                 background: white;
                 border-radius: 10px;
                 box-shadow: 0 3px 15px rgba(0,0,0,0.2);
@@ -68,7 +68,7 @@
                 opacity: 1;
             }
 
-            /* 蓝色头部：薄且简洁 */
+            /* 蓝色头部：极简风格 */
             .window-header {
                 padding: 8px 15px;
                 background: #2563eb;
@@ -99,18 +99,18 @@
                 background: rgba(255, 255, 255, 0.1);
             }
 
-            /* 列表式按钮：浅灰背景+分割线+对应图标 */
+            /* 列表式按钮：完全匹配参考图 */
             .func-buttons {
                 padding: 0;
                 display: flex;
                 flex-direction: column;
-                max-height: calc(${config.windowHeight}px - 34px);
-                overflow-y: auto;
+                max-height: calc(${config.windowHeight}px - 34px); /* 头部34px，内容区高度适配 */
+                overflow-y: hidden; /* 禁止滚动，确保内容完整 */
                 -webkit-overflow-scrolling: touch;
             }
             .func-btn {
                 padding: 10px 15px;
-                background: #f2f3f5;
+                background: #f0f0f0;
                 font-size: 14px;
                 color: #333;
                 text-align: left;
@@ -121,18 +121,23 @@
                 justify-content: space-between;
                 -webkit-tap-highlight-color: transparent;
                 border: none;
-                border-bottom: 1px solid #e5e7eb;
+                border-bottom: 1px solid #e0e0e0;
+                border-radius: 0;
             }
             .func-btn:last-child {
                 border-bottom: none;
             }
             .func-btn:hover, .func-btn:active {
-                background: #e5e7eb;
+                background: #e5e5e5;
             }
             .btn-icon {
                 width: 20px;
                 height: 20px;
-                opacity: 0.8;
+                opacity: 1;
+            }
+            /* 公告图标颜色调整为蓝色 */
+            #btnNotice .btn-icon {
+                filter: invert(32%) sepia(66%) saturate(3344%) hue-rotate(210deg) brightness(92%) contrast(91%);
             }
 
             .content-panel {
@@ -448,7 +453,7 @@
             createStyle();
             const elements = createElements();
             initFunctions(elements);
-            console.log('悬浮窗样式匹配完成');
+            console.log('悬浮窗样式优化完成');
         } catch (err) {
             console.error('悬浮窗加载失败：', err);
             alert('悬浮窗异常，请检查文件路径');
