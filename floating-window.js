@@ -1,4 +1,4 @@
-// floatWindow.js - 匹配参考图样式（列表式按钮+对应图标）
+// floatWindow.js - 匹配参考图样式（列表式按钮+薄头部）
 (function() {
     if (window.floatingWindowInjected) return;
     window.floatingWindowInjected = true;
@@ -68,7 +68,7 @@
                 opacity: 1;
             }
 
-            /* 蓝色头部：更简洁，高度压缩 */
+            /* 蓝色头部：薄且简洁 */
             .window-header {
                 padding: 8px 15px;
                 background: #2563eb;
@@ -80,7 +80,7 @@
                 align-items: center;
                 cursor: move;
                 -webkit-tap-highlight-color: transparent;
-                height: 34px; /* 进一步降低高度 */
+                height: 34px;
             }
 
             .modal-back {
@@ -99,18 +99,18 @@
                 background: rgba(255, 255, 255, 0.1);
             }
 
-            /* 功能按钮：列表式布局，浅灰背景，图标居右 */
+            /* 列表式按钮：浅灰背景+分割线+对应图标 */
             .func-buttons {
-                padding: 0; /* 取消内边距，由按钮自身控制 */
+                padding: 0;
                 display: flex;
                 flex-direction: column;
-                max-height: calc(${config.windowHeight}px - 34px); /* 头部34px */
+                max-height: calc(${config.windowHeight}px - 34px);
                 overflow-y: auto;
                 -webkit-overflow-scrolling: touch;
             }
             .func-btn {
                 padding: 10px 15px;
-                background: #f2f3f5; /* 浅灰色背景 */
+                background: #f2f3f5;
                 font-size: 14px;
                 color: #333;
                 text-align: left;
@@ -121,10 +121,10 @@
                 justify-content: space-between;
                 -webkit-tap-highlight-color: transparent;
                 border: none;
-                border-bottom: 1px solid #e5e7eb; /* 底部分割线 */
+                border-bottom: 1px solid #e5e7eb;
             }
             .func-btn:last-child {
-                border-bottom: none; /* 最后一个按钮无分割线 */
+                border-bottom: none;
             }
             .func-btn:hover, .func-btn:active {
                 background: #e5e7eb;
@@ -135,7 +135,6 @@
                 opacity: 0.8;
             }
 
-            /* 内容面板：与功能按钮样式统一 */
             .content-panel {
                 padding: 10px;
                 max-height: calc(${config.windowHeight}px - 34px);
